@@ -3,6 +3,13 @@ import mediapipe as mp
 
  
 import time #计算fps值
+#定义骨架
+skeleton = [
+
+]
+
+
+
 #两个初始化
 mpPose = mp.solutions.pose
 pose = mpPose.Pose()
@@ -10,7 +17,8 @@ pose = mpPose.Pose()
 mpDraw = mp.solutions.drawing_utils
  
 #调用摄像头，在同级目录下新建Videos文件夹，然后在里面放一些MP4文件，方便读取
-cap = cv2.VideoCapture("teacher_video_30fps.mp4")
+# cap = cv2.VideoCapture(0) #调用摄像头
+cap = cv2.VideoCapture("data/teacher_video_30fps.mp4")
 #计算pfs值需要用到的变量，先初始化以一下
 pTime = 0
 
@@ -26,15 +34,17 @@ while cap.isOpened():
     # print(results.pose_landmarks)
     #检测到人体的话：
     if results.pose_landmarks:
-    #使用mpDraw来刻画人体关键点并连接起来
-        mpDraw.draw_landmarks(img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+        pose_landmarks = results.pose_landmarks.landmark
+        print(pose_landmarks)
+        print(pose_landmarks[0].visibility)
         #如果我们想对33个关键点中的某一个进行特殊操作，需要先遍历33个关键点
-        for id, lm in enumerate(results.pose_landmarks.landmark):
+        keypoint_list = {}
+        for id, keypoint in enumerate(results.pose_landmarks.landmark):
         #打印出来的关键点坐标都是百分比的形式，我们需要获取一下视频的宽和高
             h, w, c = img.shape
-            print(id, lm)
+            # print(id, lm)
             #将x乘视频的宽，y乘视频的高转换成坐标形式
-            cx, cy = int(lm.x * w), int(lm.y * h)
+            cx, cy = int(keypoint.x * w), int(keypoint.y * h)
             #使用cv2的circle函数将关键点特殊处理
             cv2.circle(img, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
 
@@ -50,4 +60,16 @@ while cap.isOpened():
     cv2.imshow("Image", img)
     cv2.imwrite("saved_image.png", img)
     cv2.waitKey(1)
-    input("push enter")
+
+
+
+    exit_program = False
+    while True:
+        key = cv2.waitKey(1) & 0xFF  # & 0xFF是为了确保按键值是8位无符号整数
+        if key == 32: #空格键的 ASCII码
+            break
+        elif key == 27:
+            exit_program = True
+            break
+    if exit_program == True:
+        break
