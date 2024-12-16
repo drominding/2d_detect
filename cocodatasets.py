@@ -6,8 +6,8 @@ import random
 import matplotlib.patches as patches
 
 # 指定数据集路径和标注文件
-annotation_file = 'E:/data/annotations_trainval2017/person_keypoints_val2017.json'
-dataDir = 'E:/data/val2017'
+annotation_file = 'E:/data/COCO_HOME/annotations_trainval2017/person_keypoints_val2017.json'
+dataDir = 'E:/data/COCO_HOME/val2017'
 # 初始化COCO对象
 coco = COCO(annotation_file)
  
