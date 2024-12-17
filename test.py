@@ -1,17 +1,19 @@
-import point_cloud_utils as pcu
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-p1 = [
-        [1,1,0],[1,1,0],[1,1,0],[1,1,0],
-        [1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],[1,2,0],
+import cv2  # 用于读取和处理图像
+import utils
+import point_cloud_utils as pcu
 
-        [1,4,0]
-]
-p2 = [
-        [1,1,0],[1,1,0],[1,1,0],[1,1,0],
-        [1,2,0],[1,2,0],[1,2,0],
-        [1,3,0],[1,3,0],
-]
-p1 = np.array(p1).astype(np.float32)
-p2 = np.array(p2).astype(np.float32)
-result = pcu.chamfer_distance(p1,p2)
-print(result)
+point1 = np.load('data/video2img/0.npy')
+point2 = np.load('data/video2img/2.npy')
+translated_a = point1.copy()  # 复制原始数组以避免修改它
+translated_a[:, 0] += 100
+print(translated_a)
+hd = pcu.chamfer_distance(point1, point2)
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(translated_a[:,0],translated_a[:,1],translated_a[:,2], c='r', marker='o')
+ax.scatter(point1[:,0],point1[:,1],point1[:,2], c='r', marker='o')
+print(hd)
+plt.show()
