@@ -8,8 +8,8 @@ mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 
 # 加载两张图片
-image1 = cv2.imread('1.jpg')
-image2 = cv2.imread('2.jpg')
+image1 = cv2.imread(r'E:\CODE\2D_detect\data\1.jpg')
+image2 = cv2.imread(r'E:\CODE\2D_detect\data\2.jpg')
 
 # 将图片转换为RGB格式，因为MediaPipe需要RGB格式的图片
 image1_rgb = cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)

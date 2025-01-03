@@ -10,7 +10,7 @@ pose = mpPose.Pose()
 mpDraw = mp.solutions.drawing_utils
  
 #调用摄像头，在同级目录下新建Videos文件夹，然后在里面放一些MP4文件，方便读取
-cap = cv2.VideoCapture("teacher_video_30fps.mp4")
+cap = cv2.VideoCapture(r"E:\CODE\2D_detect\data\student_video_30fps.mp4")
 #计算pfs值需要用到的变量，先初始化以一下
 pTime = 0
 

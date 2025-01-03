@@ -1,3 +1,8 @@
+'''
+逐帧读取视频，获取关节的并保存数据
+'''
+
+
 import cv2
 import mediapipe as mp
 import matplotlib.pyplot as plt
